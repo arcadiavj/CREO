@@ -18,7 +18,7 @@ class Conexion {
     public function __construct() {
         try {
             //estoy probando este PDO con utf8
-            $this->_conexion = new PDO("mysql:dbname=pracprof;host=localhost", $this->_usuario, $this->_clave, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\'')); 
+            $this->_conexion = new PDO("mysql:dbname=dbcreo;host=localhost", $this->_usuario, $this->_clave, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\'')); 
             //el anterior PDO era el que sigue
             //$this->_conexion = new PDO("mysql:dbname=pracprof;host=localhost", $this->_usuario, $this->_clave); 
             $this->_conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //ANTE ERROR, LANZA UNA EXCEPCION

@@ -1,2 +1,2 @@
-# PracProf
-Practica Profesional
+# CREO
+Clínica CREO
