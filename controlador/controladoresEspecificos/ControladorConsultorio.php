@@ -17,15 +17,15 @@ class ControladorConsultorio extends ControladorGeneral{
         $idUser = $_SESSION["id_usuario"];
         $fecha = time() - (5 * 60 * 60); // le resto 5 horas a la fecha para que me dé la hora argentina
         $fechaActual = date('Y-m-d',$fecha);
-        if($datosCampos['id_especialidad'] == 0) { // si id=0 entonces es agregar
+        if($datosCampos['id_consultorio'] == 0) { // si id=0 entonces es agregar
             try {
                 $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
-                $paramEspecialidad = ["descripcion_especialidad"=>$datosCampos["descripcion"],
+                $paramConsultorio = ["descripcion_consultorio"=>$datosCampos["descripcion"],
                     "fch_creacion"=>$fechaActual];
                 //var_dump($paramEspecialidad);
-                $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_ESPECIALIDAD, $paramEspecialidad);
-                $idEspecialidad = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMA_ESPECIALIDAD);
-                $id = $idEspecialidad->fetchColumn();
+                $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::INSERTAR_CONSULTORIO, $paramConsultorio);
+                $idConsultorio = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMO_CONSULTORIO);
+                $id = $idConsultorio->fetchColumn();
                 $this->refControladorPersistencia->get_conexion()->commit();  //si todo salió bien hace el commit
             }catch (PDOException $excepcionPDO) {
                 echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
@@ -37,11 +37,11 @@ class ControladorConsultorio extends ControladorGeneral{
         } else { //si entra acá es para modificar
             try {
                 $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
-                $paramEspec = ["descripcion_especialidad"=>$datosCampos["descripcion"],
-                    "fch_modificacion"=>$fechaActual, "id_especialidad"=>$datosCampos["id_especialidad"]];
-                //var_dump($paramEspec);
-                $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ACTUALIZAR_ESPECIALIDAD, $paramEspec);
-                $id = $datosCampos["id_especialidad"];
+                $paramConsul = ["descripcion_consultorio"=>$datosCampos["descripcion"],
+                    "fch_modificacion"=>$fechaActual, "id_consultorio"=>$datosCampos["id_consultorio"]];
+                //var_dump($paramConsul);
+                $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ACTUALIZAR_CONSULTORIO, $paramConsul);
+                $id = $datosCampos["id_consultorio"];
                 $this->refControladorPersistencia->get_conexion()->commit();  //si todo salió bien hace el commit            
             }catch (PDOException $excepcionPDO) {
                 echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
@@ -51,17 +51,17 @@ class ControladorConsultorio extends ControladorGeneral{
                 $this->refControladorPersistencia->get_conexion()->rollBack();  //si hay algún error hace rollback
             }
         }
-        $respuesta = $this->getEspecialidad($id);
+        $respuesta = $this->getConsultorio($id);
         return $respuesta;
     }
 
     public function buscar() {
         try {
             $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
-            $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_ESPECIALIDADES);
-            $arrayEspecs = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_CONSULTORIO);
+            $arrayCons = $statement->fetchAll(PDO::FETCH_ASSOC);
             $this->refControladorPersistencia->get_conexion()->commit(); //si todo salió bien hace el commit
-            return $arrayEspecs;
+            return $arrayCons;
         }catch (PDOException $excepcionPDO) {
             echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
             $this->refControladorPersistencia->get_conexion()->rollBack();//si salio mal hace un rollback
@@ -76,10 +76,10 @@ class ControladorConsultorio extends ControladorGeneral{
             $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
             $fecha=time() - (5 * 60 * 60); // le resto 5 horas a la fecha para que me dé la hora argentina
             $fechaRestada=date('Y-m-d',$fecha);
-            $arrayEspecialidad = ["fch_baja"=>$fechaRestada, "id_art"=>$id];
-            $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ELIMINAR_ESPECIALIDAD, $arrayEspecialidad);
+            $arrayConsultorios = ["fch_baja"=>$fechaRestada, "id_consultorio"=>$id];
+            $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ELIMINAR_CONSULTORIO, $arrayConsultorios);
             $this->refControladorPersistencia->get_conexion()->commit(); //si todo salió bien hace el commit
-            return $arrayEspecialidad;
+            return $arrayConsultorios;
         }catch (PDOException $excepcionPDO) {
             echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
             $this->refControladorPersistencia->get_conexion()->rollBack();//si salio mal hace un rollback
@@ -96,11 +96,11 @@ class ControladorConsultorio extends ControladorGeneral{
     public function agregar($datosCampos) {
         
     }
-    public function getEspecialidad($id) {
+    public function getConsultorio($id) {
         try {
             $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
-            $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UNA_ESPECIALIDAD,array($id));
-            $especialidad = $statement->fetch();
+            $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_CONSULTORIO,array($id));
+            $consultorio = $statement->fetch();
             $this->refControladorPersistencia->get_conexion()->commit();  //si todo salió bien hace el commit            
         }catch (PDOException $excepcionPDO) {
             echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
@@ -109,6 +109,6 @@ class ControladorConsultorio extends ControladorGeneral{
             echo $exc->getTraceAsString();
             $this->refControladorPersistencia->get_conexion()->rollBack();  //si hay algún error hace rollback
         }
-        return $especialidad;
+        return $consultorio;
     }
 }

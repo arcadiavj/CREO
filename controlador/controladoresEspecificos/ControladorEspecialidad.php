@@ -76,7 +76,7 @@ class ControladorEspecialidad extends ControladorGeneral{
             $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
             $fecha=time() - (5 * 60 * 60); // le resto 5 horas a la fecha para que me dé la hora argentina
             $fechaRestada=date('Y-m-d',$fecha);
-            $arrayEspecialidad = ["fch_baja"=>$fechaRestada, "id_art"=>$id];
+            $arrayEspecialidad = ["fch_baja"=>$fechaRestada, "id_especialidad"=>$id];
             $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ELIMINAR_ESPECIALIDAD, $arrayEspecialidad);
             $this->refControladorPersistencia->get_conexion()->commit(); //si todo salió bien hace el commit
             return $arrayEspecialidad;

@@ -17,11 +17,11 @@ $(function() {
             $("#agregar").on('click', function(event) {
                 event.preventDefault();
                 app.borrarCampos();
-                $("#id_especialidad").val(0);
+                $("#id_consultorio").val(0);
                 $("#mHeader").removeClass();
                 $("#mHeader").attr("class","modal-header bg-primary");
-                $("#tituloModal").html("Agregar Especialidad");
-                $("#modalEspecialidad").modal({show: true});
+                $("#tituloModal").html("Agregar Consultorio");
+                $("#modalConsultorio").modal({show: true});
                 $("#guardar").attr("value","Agregar");
                 $("#guardar").html("Agregar");
                 $("#descripcion").removeAttr("disabled");
@@ -30,57 +30,57 @@ $(function() {
                 app.activarControles();
                 
             });
-            $('#modalEspecialidad').on('shown.bs.modal', function () {
+            $('#modalConsultorio').on('shown.bs.modal', function () {
                 $('#descripcion').focus();
             });                
 
-            $("#reporteEspecialidad").on('click', function(event) {
+            $("#reporteConsultorio").on('click', function(event) {
                 event.preventDefault();
-                window.open('../reportes/reporteEspecialidad.php?idUsuario='+idUsuario, '_blank'); //de esta forma abre en una nueva ventana o pestaña
+                window.open('../reportes/reporteConsultorio.php?idUsuario='+idUsuario, '_blank'); //de esta forma abre en una nueva ventana o pestaña
                 
             });
 
             $("#reporDetalle").on('click', function(event) {
                 event.preventDefault();
-                var idEspec = $("#id_especialidad").val();
-                window.open('../reportes/reporteDetalleEspecialidad.php?id=' + idEspec +'&idUsuario='+idUsuario , '_blank'); //de esta forma abre en una nueva ventana o pestaña
+                var idCons = $("#id_consultorio").val();
+                window.open('../reportes/reporteDetalleConsultorio.php?id=' + idCons +'&idUsuario='+idUsuario , '_blank'); //de esta forma abre en una nueva ventana o pestaña
             });
             
-            $("#cuerpoTablaEspecialidades").on('click', '.editar', function(event) {
-                $("#id_especialidad").val($(this).attr("data-id_especialidad"));
+            $("#cuerpoTablaConsultorios").on('click', '.editar', function(event) {
+                $("#id_consultorio").val($(this).attr("data-id_consultorio"));
                 $("#mHeader").removeClass();
                 $("#mHeader").attr("class","modal-header bg-success");
                 $("#descripcion").val($(this).parent().parent().children().first().next().html());
                 $("#guardar").html("Modificar");
                 $("#guardar").attr("value","Modificar");
-                $("#tituloModal").html("Editar Especialidad");
-                $("#modalEspecialidad").modal({show: true});
+                $("#tituloModal").html("Editar Consultorio");
+                $("#modalConsultorio").modal({show: true});
                 $("#guardar").show();
                 $("#reporDetalle").hide();
                 app.activarControles();
             });
             
-            $("#cuerpoTablaEspecialidades").on('click', '.seleccionar', function(event) {
+            $("#cuerpoTablaConsultorios").on('click', '.seleccionar', function(event) {
 
-                $("#id_especialidad").val($(this).attr("data-id_especialidad"));
+                $("#id_consultorio").val($(this).attr("data-id_consultorio"));
                 $("#mHeader").removeClass();
                 $("#mHeader").attr("class","modal-header bg-info");
                 $("#descripcion").val($(this).parent().parent().children().first().next().html());
                 $("#guardar").hide();
                 $("#reporDetalle").show();
-                $("#tituloModal").html("Detalles Especialidad");
-                $("#modalEspecialidad").modal({show: true});
+                $("#tituloModal").html("Detalles Consultorio");
+                $("#modalConsultorio").modal({show: true});
                 app.desactivarControles();
             });
             
-            $("#cuerpoTablaEspecialidades").on('click', '.eliminar', function() {
-                var id = $(this).attr("data-id_especialidad");
+            $("#cuerpoTablaConsultorios").on('click', '.eliminar', function() {
+                var id = $(this).attr("data-id_consultorio");
                 bootbox.confirm({ 
                     size: 'medium',
                     message: "Se va a eliminar el registro seleccionado. ¿Está seguro?", 
                     callback: function(result){
                     if(result){
-                        app.eliminarEspecialidad(id);
+                        app.eliminarConsultorio(id);
                     }
                     }
                 });
@@ -90,20 +90,20 @@ $(function() {
             $("#cancelar").on("click", function(event) {
                 event.preventDefault();
                 app.borrarCampos();
-                $("#modalEspecialidad").modal('hide');
+                $("#modalConsultorio").modal('hide');
             });
             
             $("#equis").on("click", function(event) {
                 event.preventDefault();
                 app.borrarCampos();
-                $("#modalEspecialidad").modal('hide');
+                $("#modalConsultorios").modal('hide');
             });
 
             $("#guardar").on("click", function(event) {
                 event.preventDefault();
                 app.validarCampos();
             });
-            $("#formEspecialidad").bootstrapValidator({
+            $("#formConsultorio").bootstrapValidator({
                 excluded: []
             });
         };
@@ -116,7 +116,7 @@ $(function() {
                 bootbox.alert(rta);
                 $("#descripcion").focus();
             }else{
-                app.guardarEspecialidad();
+                app.guardarConsultorio();
             }
         };
         app.desactivarControles = function (){
@@ -127,29 +127,29 @@ $(function() {
         }; 
         app.borrarCampos = function (){
             $("#descripcion").val("").html();
-            $("#formEspecialidad").bootstrapValidator('resetForm', true);
+            $("#formConsultorio").bootstrapValidator('resetForm', true);
         }; 
         
-        app.guardarEspecialidad = function() {
+        app.guardarConsultorio = function() {
             var url = "../../controlador/ruteador/Ruteador.php"; //tanto para modif como para agregar
-            var data = $("#formEspecialidad").serialize();
+            var data = $("#formConsultorio").serialize();
             $.ajax({
                 url: url,
                 method: 'POST',
                 dataType: 'json',
                 data: data,
                 success: function(datos) {
-                    $("#modalEspecialidad").modal('hide');
-                    app.actualizarDataTable(datos, $("#id_especialidad").val());
+                    $("#modalConsultorio").modal('hide');
+                    app.actualizarDataTable(datos, $("#id_consultorio").val());
                 },
                 error: function(data) {
                     alert(data);
                 }
             });
         };
-        app.eliminarEspecialidad= function(id) {
+        app.eliminarConsultorio= function(id) {
 
-            var url = "../../controlador/ruteador/Ruteador.php?accion=eliminar&nombreFormulario=Especialidad&id=" + id; 
+            var url = "../../controlador/ruteador/Ruteador.php?accion=eliminar&nombreFormulario=Consultorio&id=" + id; 
 
             $.ajax({
                 url: url,
@@ -166,11 +166,11 @@ $(function() {
         };
 
         app.borrarFilaDataTable = function(id) {
-            var fila = $("#cuerpoTablaEspecialidades").find("a[data-id_especialidad='" + id + "']").parent().parent().remove();
+            var fila = $("#cuerpoTablaConsultorios").find("a[data-id_consultorio='" + id + "']").parent().parent().remove();
         };
         
-        app.buscarEspecialidades = function() {
-            var url = "../../controlador/ruteador/Ruteador.php?accion=buscar&nombreFormulario=Especialidad";
+        app.buscarConsultorio = function() {
+            var url = "../../controlador/ruteador/Ruteador.php?accion=buscar&nombreFormulario=Consultorio";
             $.ajax({
                 url: url,
                 method: 'GET',
@@ -186,30 +186,30 @@ $(function() {
         };
 
         
-        app.actualizarDataTable = function(especialidad, id) {
+        app.actualizarDataTable = function(consultorio, id) {
             if (id == 0) { //si entra acá es porque es agregar
                 var html = '<tr class="text-warning">' +
-                        '<td><a class="center-block seleccionar" data-id_especialidad="' + especialidad.id_especialidad + '"><button class="btn btn-info btn-sm">'+
+                        '<td><a class="center-block seleccionar" data-id_consultorio="' + consultorio.id_consultorio + '"><button class="btn btn-info btn-sm">'+
                         '<span class="glyphicon glyphicon-eye-open left"> Info</span></button></a></td>' +
-                        '<td>' + especialidad.descripcion_especialidad + '</td>' +
-                        '<td><a class="pull-left editar" data-id_especialidad="' + especialidad.id_especialidad + '"><button class="btn btn-success btn-sm">'+
+                        '<td>' + consultorio.descripcion_consultorio + '</td>' +
+                        '<td><a class="pull-left editar" data-id_consultorio="' + consultorio.id_consultorio + '"><button class="btn btn-success btn-sm">'+
                         '<span class="glyphicon glyphicon-pencil"> Editar</span></button></a>' +
-                        '<a class="pull-right eliminar" data-id_especialidad="' + especialidad.id_especialidad + '"><button class="btn btn-danger btn-sm">'+
+                        '<a class="pull-right eliminar" data-id_consultorio="' + consultorio.id_consultorio + '"><button class="btn btn-danger btn-sm">'+
                         '<span class="glyphicon glyphicon-remove"> Eliminar</span></button></a>' +
                         '</td>' +
                         '</tr>';
-                $("#cuerpoTablaEspecialidades").append(html);
+                $("#cuerpoTablaConsultorios").append(html);
                 
             } else {
                 //busco la fila
-                var fila = $("#cuerpoTablaEspecialidades").find("a[data-id_especialidad='" + id + "']").parent().parent();
+                var fila = $("#cuerpoTablaConsultorios").find("a[data-id_consultorio='" + id + "']").parent().parent();
                 var html = '<td>' + 
-                        '<a class="center-block seleccionar" data-id_especialidad="' + especialidad.id_especialidad + '"><button class="btn btn-info btn-sm">'+
+                        '<a class="center-block seleccionar" data-id_consultorio="' + consultorio.id_consultorio + '"><button class="btn btn-info btn-sm">'+
                         '<span class="glyphicon glyphicon-eye-open left"> Info</span></button></a></td>' +
-                        '<td>' + especialidad.descripcion_especialidad + '</td>' +
-                        '<td><a class="pull-left editar" data-id_especialidad="' + especialidad.id_especialidad + '"><button class="btn btn-success btn-sm">'+
+                        '<td>' + consultorio.descripcion_consultorio + '</td>' +
+                        '<td><a class="pull-left editar" data-id_consultorio="' + consultorio.id_consultorio + '"><button class="btn btn-success btn-sm">'+
                         '<span class="glyphicon glyphicon-pencil"> Editar</span></button></a>' +
-                        '<a class="pull-right eliminar" data-id_especialidad="' + especialidad.id_especialidad + '"><button class="btn btn-danger btn-sm">'+
+                        '<a class="pull-right eliminar" data-id_consultorio="' + consultorio.id_consultorio + '"><button class="btn btn-danger btn-sm">'+
                         '<span class="glyphicon glyphicon-remove"> Eliminar</span></button></a>' +
                         '</td>';
                 fila.html(html);
@@ -219,20 +219,20 @@ $(function() {
         app.rellenarDataTable = function(data) {
             var html = "";
 
-            $.each(data, function(clave, especialidad) {
+            $.each(data, function(clave, consultorio) {
                 html += '<tr class="text-warning">' +
-                        '<td><a class="center-block seleccionar" data-id_especialidad="' + especialidad.id_especialidad + '"><button class="btn btn-info btn-sm">'+
+                        '<td><a class="center-block seleccionar" data-id_consultorio="' + consultorio.id_consultorio + '"><button class="btn btn-info btn-sm">'+
                         '<span class="glyphicon glyphicon-eye-open left"> Info</span></button></a></td>' +
-                        '<td>' + especialidad.descripcion_especialidad + '</td>' +
-                        '<td><a class="pull-left editar" data-id_especialidad="' + especialidad.id_especialidad + '"><button class="btn btn-success btn-sm">'+
+                        '<td>' + consultorio.descripcion_consultorio + '</td>' +
+                        '<td><a class="pull-left editar" data-id_consultorio="' + consultorio.id_consultorio + '"><button class="btn btn-success btn-sm">'+
                         '<span class="glyphicon glyphicon-pencil"> Editar</span></button></a>' +
-                        '<a class="pull-right eliminar" data-id_especialidad="' + especialidad.id_especialidad + '"><button class="btn btn-danger btn-sm">'+
+                        '<a class="pull-right eliminar" data-id_consultorio="' + consultorio.id_consultorio + '"><button class="btn btn-danger btn-sm">'+
                         '<span class="glyphicon glyphicon-remove"> Eliminar</span></button></a>' +
                         '</td>' +
                         '</tr>';
             });
-            $("#cuerpoTablaEspecialidades").html(html);
-            $("#tablaEspecialidades").dataTable({       //transforma la tabla en dataTable
+            $("#cuerpoTablaConsultorios").html(html);
+            $("#tablaConsultorios").dataTable({       //transforma la tabla en dataTable
                 responsive: true,
                 "sPagiationType":"full_numbers", //activa la paginación con números
                 "language":{ //cambia el lenguaje de la dataTable
@@ -251,7 +251,7 @@ $(function() {
                         $("#id_user").val(datos.id_usuario);
                         $("#logedUser").html(datos.usuario_usuario);
                         idUsuario=datos.id_usuario;
-                        app.buscarEspecialidades();  
+                        app.buscarConsultorio();  
                         app.bindings();
                     }else{
                         location.href = "../../index.html";
