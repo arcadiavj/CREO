@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>ESPECIALIDADES</title>
+        <title>LLAMADOS</title>
         <link href="../css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
         <!-- Bootstrap -->
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -65,7 +65,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Llamar Clientes <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="vista/html/llamada.html"><i class="glyphicon glyphicon-phone"></i>   Llamadas</a></li>
+                                <li><a href="llamado.html"><i class="glyphicon glyphicon-phone"></i>   Llamadas</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -82,18 +82,18 @@
             </div><!-- /.container-fluid -->
         </nav>
         <div class="col-lg-5"></div>
-        <div><h2>ESPECIALIDADES</h2>
+        <div><h2>LLAMADOS</h2>
             <!--CAMPO OCULTO PARA EL ID_USER DE LA SESSION DE PHP -->
             <div class="form-group">
                 <input class="form-control" type="hidden" id="id_user" name="id_user">
             </div>
             <!--fin campo oculto-->
         </div>
-        <!-- modal especialidad-->
-        <div class="modal fade" id="modalEspecialidad" tabindex="-1" role="dialog" aria-labelledby="modalEspecialidad" aria-hidden="true">
+        <!-- modal consultorio-->
+        <div class="modal fade" id="modalLlamado" tabindex="-1" role="dialog" aria-labelledby="modalLlamado" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="formEspecialidad" class="form-horizontal"
+                    <form id="formLlamado" class="form-horizontal"
                           data-bv-message="Este valor No es válido"
                           data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                           data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
@@ -104,23 +104,23 @@
                           data-toggle="validator">
                         <div class="modal-header" id="mHeader">
                             <button type="button" class="close" data-dismiss="modal" id="equis" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title text-center" id="tituloModal">Agregar Especialidad</h4>
+                            <h4 class="modal-title text-center" id="tituloModal">Agregar Llamado</h4>
                         </div>
                         <div class="modal-body">
                             
                             <div class="form-group">
-                                <input class="form-control" type="hidden" id="id_especialidad" name="id_especialidad">
+                                <input class="form-control" type="hidden" id="id_llamado" name="id_llamado">
                             </div>
                             <div class="form-group">
                                 <label class='col-lg-3'>Descripción</label>
                                 <div class='col-lg-9'>
                                     <input class="form-control" type="text" id="descripcion" name="descripcion"
                                            maxlength="50"
-                                           placeholder="Desccricion de Especialidad"
+                                           placeholder="Desccricion de Llamado"
                                            data-bv-notempty="true"
                                            data-bv-stringlength-min="1"
                                            data-bv-stringlength-max="50"
-                                           data-bv-notempty-message="Debes completar la Descripción de la Especialidad">
+                                           data-bv-notempty-message="Debes completar la Descripción del Llamado">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -132,7 +132,7 @@
                             <div class="form-group">
                                 <label class='col-lg-2'></label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="hidden" id="nombreFormulario" name="nombreFormulario" value="Especialidad">
+                                    <input class="form-control" type="hidden" id="nombreFormulario" name="nombreFormulario" value="Llamado">
                                 </div>
                             </div>
                         </div>
@@ -160,7 +160,7 @@
                                 <button class="btn btn-primary btn-lg btn-toolbar right" id="agregar" value="agregar">
                                     <span class="glyphicon glyphicon-plus-sign left"> </span> Agregar
                                 </button>
-                                <button class="btn btn-primary btn-lg" id="reporteEspecialidad" value="reporte">
+                                <button class="btn btn-primary btn-lg" id="reporteConsultorio" value="reporte">
                                     <span class="glyphicon glyphicon-print left"> </span> Reporte
                                 </button>
                             </form>
@@ -174,7 +174,7 @@
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                <!-- DATATABLE-->
-                <table id="tablaEspecialidades" class="display text-center text-primary" cellspacing="0" width="100%">
+                <table id="tablaLlamados" class="display text-center text-primary" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th width="10%">Ver</th>
@@ -182,7 +182,7 @@
                             <th width="30%">Opciones</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpoTablaEspecialidades">
+                    <tbody id="cuerpoTablaLlamados">
 
                     </tbody>
                 </table>
@@ -207,6 +207,6 @@
         <script src="../js/bootstrap/bootstrapValidator.min.js" type="text/javascript"></script>
         <script src="../js/jquery.dataTables.js" type="text/javascript"></script>
         <script src="../js/jquery/bootbox.js" type="text/javascript"></script>
-        <script src="../js/funcionesEspecialidad.js" type="text/javascript"></script>
+        <script src="../js/funcionesLlamado.js" type="text/javascript"></script>
     </body>
 </html>
