@@ -218,4 +218,7 @@ interface DBSentencias {
     const ULTIMO_CONSULTORIO = "SELECT MAX(id_consultorio) FROM consultorio WHERE fch_baja = '0000-00-00' LOCK IN SHARE MODE";
     const BUSCAR_UN_CONSULTORIO = "SELECT * FROM consultorio WHERE consultorio.fch_baja = '0000-00-00' AND id_consultorio = ? LOCK IN SHARE MODE";
     
+    const MOSTRAR_TURNOS = "SELECT id_consultorio, MAX(fch_llegada_turno)FROM turno GROUP BY id_consultorio";
+    const ULTIMO_TURNO = "SELECT * FROM turno WHERE fch_llegada_turno = (SELECT MAX(fch_llegada_turno) FROM turno)";
+    const BUSCAR_TURNOS_ACTUALES = "SELECT * FROM turno ORDER BY fch_llegada_turno DESC";
 }
