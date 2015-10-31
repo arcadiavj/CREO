@@ -193,4 +193,34 @@ interface DBSentencias {
             WHERE id_pago = ? LOCK IN SHARE MODE";
     
     const MODIFICAR_PAGO = "UPDATE pago SET detalle_pago = ?, fecha_pago = ?, monto_pago = ?, id_caso = ?, fch_modificacion = ? WHERE id_pago = ?";
-}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //NUEVAS SENTENCIAS PARA CREO
+    const BUSCAR_ESPECIALIDADES = "SELECT * FROM especialidad WHERE especialidad.fch_baja = '0000-00-00' LOCK IN SHARE MODE";
+    const ELIMINAR_ESPECIALIDAD = "UPDATE especialidad SET fch_baja = ? WHERE id_especialidad = ?";
+    const INSERTAR_ESPECIALIDAD = "INSERT INTO especialidad(descripcion_especialidad, fch_creacion) VALUES(?, ?)";
+    const ACTUALIZAR_ESPECIALIDAD = "UPDATE especialidad SET descripcion_especialidad = ?, fch_modificacion = ? WHERE id_especialidad = ?";
+    const ULTIMA_ESPECIALIDAD = "SELECT MAX(id_especialidad) FROM especialidad WHERE fch_baja = '0000-00-00' LOCK IN SHARE MODE";
+    const BUSCAR_UNA_ESPECIALIDAD = "SELECT * FROM especialidad WHERE especialidad.fch_baja = '0000-00-00' AND id_especialidad = ? LOCK IN SHARE MODE";
+    
+    
+    const BUSCAR_CONSULTORIO = "SELECT * FROM consultorio WHERE consultorio.fch_baja = '0000-00-00' LOCK IN SHARE MODE";
+    const ELIMINAR_CONSULTORIO = "UPDATE consultorio SET fch_baja = ? WHERE id_consultorio = ?";
+    const INSERTAR_CONSULTORIO = "INSERT INTO consultorio(descripcion_consultorio, fch_creacion) VALUES(?, ?)";
+    const ACTUALIZAR_CONSULTORIO = "UPDATE consultorio SET descripcion_consultorio = ?, fch_modificacion = ? WHERE id_consultorio = ?";
+    const ULTIMO_CONSULTORIO = "SELECT MAX(id_consultorio) FROM consultorio WHERE fch_baja = '0000-00-00' LOCK IN SHARE MODE";
+    const BUSCAR_UN_CONSULTORIO = "SELECT * FROM consultorio WHERE consultorio.fch_baja = '0000-00-00' AND id_consultorio = ? LOCK IN SHARE MODE";
+    
+    const MOSTRAR_TURNOS = "SELECT id_consultorio, MAX(fch_llegada_turno)FROM turno GROUP BY id_consultorio";
+    const ULTIMO_TURNO = "SELECT * FROM turno WHERE fch_llegada_turno = (SELECT MAX(fch_llegada_turno) FROM turno)";
+    const BUSCAR_TURNOS_ACTUALES = "SELECT * FROM turno ORDER BY fch_llegada_turno";//SELECT timestamp FROM mensajes ORDER BY timestamp DESC LIMIT 1
+    const ULTIMO_TURNO2 = "SELECT fch_llegada_turno FROM turno ORDER BY fch_llegada_turno DESC LIMIT 1";
+    const ULTIMOS_TURNOS = "SELECT * FROM turno WHERE estado_turno = '0' ORDER BY fch_llegada_turno DESC"; //fch_llegada_turno = (SELECT MAX(fch_llegada_turno) FROM turno)"
+}   
