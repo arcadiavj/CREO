@@ -12,20 +12,28 @@ require_once 'ControladorGeneral.php';
  * @author Flaco
  */
 class ControladorSalidaTV extends ControladorGeneral{
-    public function actualizar() {
+    public function actualizar($fecha_llegada) {
         session_start();
-        //$idUser = $_SESSION["id_usuario"];
         $fecha = time(); 
         $fechaActual = date('Y-m-d H:i:s',$fecha);
-        //echo '<br>Fecha Actual: '.$fechaActual.'<br>';
         try {
             $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
-            //$param = ["fch_llegada_turno"=>$fechaActual];
             $turnos = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMO_TURNO);
             $turnosArray = $turnos->fetchAll(PDO::FETCH_ASSOC);
-            //var_dump($turnosArray);
-            
             $this->refControladorPersistencia->get_conexion()->commit();  //si todo salió bien hace el commit
+            //var_dump($turnosArray);
+//            echo $turnosArray[0]["fch_llegada_turno"].' ACAAAAA<br>';
+//            while ($turnosArray[0]["fch_llegada_turno"]<=$fecha_llegada) {
+//                $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
+//                $turnos2 = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMO_TURNO);
+//                $turnosArray2 = $turnos2->fetchAll(PDO::FETCH_ASSOC);
+//                $this->refControladorPersistencia->get_conexion()->commit();
+//                usleep(100000);//anteriormente 10000
+//                clearstatcache();
+//                $fecha_bd  = strtotime($turnosArray2[0]["fch_llegada_turno"]);
+//            }
+            usleep(10000000);
+            clearstatcache();
             return $turnosArray;
         }catch (PDOException $excepcionPDO) {
             echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';

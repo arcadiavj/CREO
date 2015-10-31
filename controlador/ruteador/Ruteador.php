@@ -11,6 +11,9 @@ if (isset($_GET['accion']) && isset($_GET['nombreFormulario'])) {
     $nombreformulario = "Usuario";
     $datosCampos = ["user"=>$_POST['user'], "pass"=>$_POST['pass']];
 }
+if (isset($_POST['fch_llegada_turno'])) {
+    $fecha_llegada = $_POST['fch_llegada_turno'];
+}
 if (isset($_GET['id'])) {
     $id=$_GET['id'];
 }
@@ -30,7 +33,7 @@ $nombreControlador = "Controlador".$nombreformulario; //meto en una variable el 
 $objControlador = new $nombreControlador(); //instancio
 switch ($accion) {
     case "actualizar":
-        $resultado = $objControlador->$accion(); //llamo a la acción
+        $resultado = $objControlador->$accion($fecha_llegada); //llamo a la acción
         echo json_encode($resultado);//arreglo json
         break;
     case "eliminar":
