@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>CONSULTORIOS</title>
+        <title>TURNOS</title>
         <link href="../css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
         <!-- Bootstrap -->
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -82,7 +82,7 @@
             </div><!-- /.container-fluid -->
         </nav>
         <div class="col-lg-5"></div>
-        <div><h2>CONSULTORIO</h2>
+        <div><h2>TURNO</h2>
             <!--CAMPO OCULTO PARA EL ID_USER DE LA SESSION DE PHP -->
             <div class="form-group">
                 <input class="form-control" type="hidden" id="id_user" name="id_user">
@@ -90,10 +90,10 @@
             <!--fin campo oculto-->
         </div>
         <!-- modal consultorio-->
-        <div class="modal fade" id="modalConsultorio" tabindex="-1" role="dialog" aria-labelledby="modalConsultorio" aria-hidden="true">
+        <div class="modal fade" id="modalTurno" tabindex="-1" role="dialog" aria-labelledby="modalTurno" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="formConsultorio" class="form-horizontal"
+                    <form id="formTurno" class="form-horizontal"
                           data-bv-message="Este valor No es válido"
                           data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                           data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
@@ -104,23 +104,59 @@
                           data-toggle="validator">
                         <div class="modal-header" id="mHeader">
                             <button type="button" class="close" data-dismiss="modal" id="equis" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title text-center" id="tituloModal">Agregar Consultorio</h4>
+                            <h4 class="modal-title text-center" id="tituloModal">Agregar Turno</h4>
                         </div>
                         <div class="modal-body">
                             
                             <div class="form-group">
-                                <input class="form-control" type="hidden" id="id_consultorio" name="id_consultorio">
+                                <input class="form-control" type="hidden" id="id_turno" name="id_turno">
                             </div>
                             <div class="form-group">
-                                <label class='col-lg-3'>Descripción</label>
+                                <label class='col-lg-3'>ID-Consultorio</label>
                                 <div class='col-lg-9'>
-                                    <input class="form-control" type="text" id="descripcion" name="descripcion"
-                                           maxlength="50"
-                                           placeholder="Desccricion de Consultorio"
-                                           data-bv-notempty="true"
-                                           data-bv-stringlength-min="1"
-                                           data-bv-stringlength-max="50"
-                                           data-bv-notempty-message="Debes completar la Descripción de la Consultorio">
+                                    <input class="form-control" type="text" id="id_consultorio" name="id_consultorio">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-3'>Consultorio</label>
+                                <div class='col-lg-9'>
+                                    <input class="form-control" type="text" id="consultorio" name="consultorio">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-3'>Usuario</label>
+                                <div class='col-lg-9'>
+                                    <input class="form-control" type="text" id="usuario" name="usuario">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-3'>Paciente</label>
+                                <div class='col-lg-9'>
+                                    <input class="form-control" type="text" id="paciente" name="paciente">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-3'>Estado</label>
+                                <div class='col-lg-9'>
+                                    <input class="form-control" type="text" id="estado" name="estado">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-3'>Fecha Llegada</label>
+                                <div class='col-lg-9'>
+                                    <input class="form-control" type="text" id="fch_llegada" name="fch_llegada">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-3'>Fecha Inicio</label>
+                                <div class='col-lg-9'>
+                                    <input class="form-control" type="text" id="fch_inicio" name="fch_inicio">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class='col-lg-3'>Fecha Fin</label>
+                                <div class='col-lg-9'>
+                                    <input class="form-control" type="text" id="fch_fin" name="fch_fin">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -132,7 +168,7 @@
                             <div class="form-group">
                                 <label class='col-lg-2'></label>
                                 <div class='col-lg-10'>
-                                    <input class="form-control" type="hidden" id="nombreFormulario" name="nombreFormulario" value="Consultorio">
+                                    <input class="form-control" type="hidden" id="nombreFormulario" name="nombreFormulario" value="SalidaTV">
                                 </div>
                             </div>
                         </div>
@@ -160,7 +196,7 @@
                                 <button class="btn btn-primary btn-lg btn-toolbar right" id="agregar" value="agregar">
                                     <span class="glyphicon glyphicon-plus-sign left"> </span> Agregar
                                 </button>
-                                <button class="btn btn-primary btn-lg" id="reporteConsultorio" value="reporte">
+                                <button class="btn btn-primary btn-lg" id="reporteTurno" value="reporte">
                                     <span class="glyphicon glyphicon-print left"> </span> Reporte
                                 </button>
                             </form>
@@ -171,23 +207,31 @@
             <div class="col-lg-4"></div><!-- Cierra el navbar que tiene el buscar y las opciones agregar imprimir -->
         </div>
         <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
                <!-- DATATABLE-->
-                <table id="tablaConsultorios" class="display text-center text-primary" cellspacing="0" width="100%">
+                <table id="tablaTurnos" class="display text-center text-primary" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th width="10%">Ver</th>
-                            <th>Descripci&oacute;n</th>
+                            <th class="oculto">ID-Consultorio</th>
+                            <th>Consultorio</th>
+                            <th class="oculto">ID-Usuario</th>
+                            <th>Usuario</th>
+                            <th>Paciente</th><!-- HISTORIA CLINICA -->
+                            <th class="oculto">Estado</th>
+                            <th>fch_llegada_turno</th>
+                            <th>fch_inicio_turno</th>
+                            <th>fch_fin_turno</th>
                             <th width="30%">Opciones</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpoTablaConsultorios">
+                    <tbody id="cuerpoTablaTurnos">
 
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-3"></div>
+            <div class="col-lg-1"></div>
         </div>
         <div class="container">
             <div class="form-signin">           
@@ -197,7 +241,7 @@
         <div class="col-lg-1"></div>
         <div class="label-info text-center container well col-lg-10"> 
             <h5>
-                &copy; 2015 Pr&aacute;ctica Profesional Tecnicatura Superior en Programaci&oacute;n Todos los Derechos Reservados
+                &copy; 2015 COOPATE Todos los Derechos Reservados
             </h5>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -207,6 +251,6 @@
         <script src="../js/bootstrap/bootstrapValidator.min.js" type="text/javascript"></script>
         <script src="../js/jquery.dataTables.js" type="text/javascript"></script>
         <script src="../js/jquery/bootbox.js" type="text/javascript"></script>
-        <script src="../js/funcionesConsultorio.js" type="text/javascript"></script>
+        <script src="../js/funcionesTurno.js" type="text/javascript"></script>
     </body>
 </html>

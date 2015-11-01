@@ -9,6 +9,7 @@
         <link href="../css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
         <!-- Bootstrap -->
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/principal.css" rel="stylesheet" type="text/css"/>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -41,9 +42,9 @@
             </div>
         </nav> 
         <!-- Main jumbotron for a primary marketing message or call to action -->
-        <div class="jumbotron text-center" style="background-image: url(../images/bebe.jpg); background-position-x: 0px; background-position-y: 30px; background-repeat: no-repeat">
-            <div id ="cabecera" class="container">
-                <h1 style="font-family: calibri">CREO</h1>
+        <div class="jumbotron text-center" id="jumbo" style="background-image: url(../images/bebe.jpg); background-position-x: 0px; background-position-y: 53px; background-repeat: no-repeat">
+            <div class="container">
+                <h1 style="font-family: calibri">CREO - TURNOS</h1>
             </div>
         </div>
         <nav class="navbar navbar-default" id="navegador">
@@ -56,24 +57,23 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="../../admin.html">Inicio</a>
+                    <a class="navbar-brand btn-info" href="../../admin.html">Inicio</a>
+                    
+                    <a class="navbar-brand btn-success" href="llamado.html">Cargar Turnos</a>
+                    
+                    <a class="navbar-brand btn-primary" href="SalidaTV.html">Llamados</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Llamar Clientes <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="vista/html/llamada.html"><i class="glyphicon glyphicon-phone"></i>   Llamadas</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Administrar <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle btn-danger" data-toggle="dropdown" role="button">Administrar <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="consultorio.html"><i class="glyphicon glyphicon-home"></i>   Consultorios</a></li>
                                 <li><a href="especialidad.html"><i class="glyphicon glyphicon-book"></i>   Especialidades</a></li>
                                 <li><a href="usuario.html"><i class="glyphicon glyphicon-user"></i>   Usuarios</a></li>
+                                <li><a href="turno.html"><i class="glyphicon glyphicon-time"></i>   Turnos</a></li>
                             </ul>
                         </li>
                     </ul>
