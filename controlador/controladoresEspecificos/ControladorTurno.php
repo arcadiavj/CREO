@@ -7,31 +7,11 @@ require_once 'ControladorGeneral.php';
  */
 
 /**
- * Description of ControladorSalidaTV
+ * Description of ControladorTurno
  *
  * @author Flaco
  */
-class ControladorSalidaTV extends ControladorGeneral{
-    public function actualizar() {
-        session_start();
-        $fecha = time(); 
-        $fechaActual = date('Y-m-d H:i:s',$fecha);
-        try {
-            $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
-            $turnos = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::ULTIMOS_TURNOS);
-            $turnosArray = $turnos->fetchAll(PDO::FETCH_ASSOC);
-            $this->refControladorPersistencia->get_conexion()->commit();  //si todo salió bien hace el commit
-            usleep(1000000);//este valor cambia el tiempo de espera antes de refrescarse
-            clearstatcache();
-            return $turnosArray;
-        }catch (PDOException $excepcionPDO) {
-            echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
-            $this->refControladorPersistencia->get_conexion()->rollBack();//si salio mal hace un rollback
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-            $this->refControladorPersistencia->get_conexion()->rollBack();  //si hay algún error hace rollback
-        }
-    }
+class ControladorTurno extends ControladorGeneral{
     public function guardar($datosCampos) {
 //        session_start();
 //        $idUser = $_SESSION["id_usuario"];
@@ -74,24 +54,31 @@ class ControladorSalidaTV extends ControladorGeneral{
 //        $respuesta = $this->getConsultorio($id);
 //        return $respuesta;
     }
-
-    public function buscar() {
-//        try {
-//            $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
-//            $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_TURNOS);
-//            $arrayTurno = $statement->fetchAll(PDO::FETCH_ASSOC);
-//            $this->refControladorPersistencia->get_conexion()->commit(); //si todo salió bien hace el commit
-//            return $arrayTurno;
-//        }catch (PDOException $excepcionPDO) {
-//            echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
-//            $this->refControladorPersistencia->get_conexion()->rollBack();//si salio mal hace un rollback
-//        }catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//            $this->refControladorPersistencia->get_conexion()->rollBack();//si salio mal hace un rollback
-//        }
+    
+    
+    
+    
+    public function agregar($datosCampos) {
+        
     }
 
-    public function eliminar($id) {
+    public function buscar() {
+        try {
+            $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
+            $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_TURNOS_ACTUALES);
+            $arrayTurnos = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $this->refControladorPersistencia->get_conexion()->commit(); //si todo salió bien hace el commit
+            return $arrayTurnos;
+        }catch (PDOException $excepcionPDO) {
+            echo "<br>Error PDO: ".$excepcionPDO->getTraceAsString().'<br>';
+            $this->refControladorPersistencia->get_conexion()->rollBack();//si salio mal hace un rollback
+        }catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            $this->refControladorPersistencia->get_conexion()->rollBack();//si salio mal hace un rollback
+        }
+    }
+
+    public function eliminar($datosCampos) {
 //        try {
 //            $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
 //            $fecha=time() - (5 * 60 * 60); // le resto 5 horas a la fecha para que me dé la hora argentina
@@ -112,11 +99,7 @@ class ControladorSalidaTV extends ControladorGeneral{
     public function modificar($datosCampos) {
         
     }
-
-    public function agregar($datosCampos) {
-        
-    }
-    public function getConsultorio($id) {
+    public function getTurno($id) {
 //        try {
 //            $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
 //            $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_UN_CONSULTORIO,array($id));

@@ -33,7 +33,7 @@ $nombreControlador = "Controlador".$nombreformulario; //meto en una variable el 
 $objControlador = new $nombreControlador(); //instancio
 switch ($accion) {
     case "actualizar":
-        $resultado = $objControlador->$accion($fecha_llegada); //llamo a la acción
+        $resultado = $objControlador->$accion(); //llamo a la acción
         echo json_encode($resultado);//arreglo json
         break;
     case "eliminar":

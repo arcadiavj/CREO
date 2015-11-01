@@ -220,7 +220,7 @@ interface DBSentencias {
     
     const MOSTRAR_TURNOS = "SELECT id_consultorio, MAX(fch_llegada_turno)FROM turno GROUP BY id_consultorio";
     const ULTIMO_TURNO = "SELECT * FROM turno WHERE fch_llegada_turno = (SELECT MAX(fch_llegada_turno) FROM turno)";
-    const BUSCAR_TURNOS_ACTUALES = "SELECT * FROM turno ORDER BY fch_llegada_turno";//SELECT timestamp FROM mensajes ORDER BY timestamp DESC LIMIT 1
+    const BUSCAR_TURNOS_ACTUALES = "SELECT * FROM turno INNER JOIN usuario ON turno.id_usuario = usuario.id_usuario INNER JOIN consultorio ON turno.id_consultorio = consultorio.id_consultorio WHERE estado_turno = 0 ORDER BY fch_llegada_turno";
     const ULTIMO_TURNO2 = "SELECT fch_llegada_turno FROM turno ORDER BY fch_llegada_turno DESC LIMIT 1";
     const ULTIMOS_TURNOS = "SELECT * FROM turno WHERE estado_turno = '0' ORDER BY fch_llegada_turno DESC"; //fch_llegada_turno = (SELECT MAX(fch_llegada_turno) FROM turno)"
 }   
