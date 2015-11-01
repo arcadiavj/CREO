@@ -211,7 +211,7 @@ interface DBSentencias {
     const BUSCAR_UNA_ESPECIALIDAD = "SELECT * FROM especialidad WHERE especialidad.fch_baja = '0000-00-00' AND id_especialidad = ? LOCK IN SHARE MODE";
     
     
-    const BUSCAR_CONSULTORIO = "SELECT * FROM consultorio WHERE consultorio.fch_baja = '0000-00-00' LOCK IN SHARE MODE";
+    const BUSCAR_CONSULTORIO = "SELECT * FROM consultorio WHERE consultorio.fch_baja = '0000-00-00' ORDER BY descripcion_consultorio LOCK IN SHARE MODE";
     const ELIMINAR_CONSULTORIO = "UPDATE consultorio SET fch_baja = ? WHERE id_consultorio = ?";
     const INSERTAR_CONSULTORIO = "INSERT INTO consultorio(descripcion_consultorio, fch_creacion) VALUES(?, ?)";
     const ACTUALIZAR_CONSULTORIO = "UPDATE consultorio SET descripcion_consultorio = ?, fch_modificacion = ? WHERE id_consultorio = ?";
@@ -220,7 +220,7 @@ interface DBSentencias {
     
     const MOSTRAR_TURNOS = "SELECT id_consultorio, MAX(fch_llegada_turno)FROM turno GROUP BY id_consultorio";
     const ULTIMO_TURNO = "SELECT * FROM turno WHERE fch_llegada_turno = (SELECT MAX(fch_llegada_turno) FROM turno)";
-    const BUSCAR_TURNOS_ACTUALES = "SELECT * FROM turno INNER JOIN usuario ON turno.id_usuario = usuario.id_usuario INNER JOIN consultorio ON turno.id_consultorio = consultorio.id_consultorio WHERE estado_turno = 0 ORDER BY fch_llegada_turno";
+    const BUSCAR_TURNOS_ACTUALES = "SELECT * FROM turno INNER JOIN usuario ON turno.id_usuario = usuario.id_usuario INNER JOIN consultorio ON turno.id_consultorio = consultorio.id_consultorio WHERE estado_turno = 0 AND consultorio.id_consultorio = ? ORDER BY fch_llegada_turno";
     const ULTIMO_TURNO2 = "SELECT fch_llegada_turno FROM turno ORDER BY fch_llegada_turno DESC LIMIT 1";
-    const ULTIMOS_TURNOS = "SELECT * FROM turno WHERE estado_turno = '0' ORDER BY fch_llegada_turno DESC"; //fch_llegada_turno = (SELECT MAX(fch_llegada_turno) FROM turno)"
+    const ULTIMOS_TURNOS = "SELECT * FROM turno WHERE estado_turno = '0' ORDER BY fch_llegada_turno DESC";
 }   

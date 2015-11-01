@@ -63,9 +63,11 @@ class ControladorTurno extends ControladorGeneral{
     }
 
     public function buscar() {
+        session_start();
+        $idCons = $_SESSION["id_consultorio"];
         try {
             $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
-            $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_TURNOS_ACTUALES);
+            $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::BUSCAR_TURNOS_ACTUALES, Array($idCons));
             $arrayTurnos = $statement->fetchAll(PDO::FETCH_ASSOC);
             $this->refControladorPersistencia->get_conexion()->commit(); //si todo salió bien hace el commit
             return $arrayTurnos;

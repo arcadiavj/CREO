@@ -250,6 +250,7 @@ $(function() {
                     if (typeof datos['id_usuario'] != 'undefined') {
                         $("#id_user").val(datos.id_usuario);
                         $("#logedUser").html(datos.usuario_usuario);
+                        $("#id_consultorio").val(datos.id_consultorio);
                         idUsuario=datos.id_usuario;
                         app.buscarConsultorio();  
                         app.bindings();

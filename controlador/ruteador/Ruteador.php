@@ -31,7 +31,7 @@ if (isset($_GET['tipoLlamada'])) {
 require_once '../controladoresEspecificos/Controlador'.$nombreformulario.'.php'; //hago el include del controlador corresp
 $nombreControlador = "Controlador".$nombreformulario; //meto en una variable el nombre del controlador corresp
 $objControlador = new $nombreControlador(); //instancio
-switch ($accion) {
+switch ($accion) { 
     case "actualizar":
         $resultado = $objControlador->$accion(); //llamo a la acción
         echo json_encode($resultado);//arreglo json

@@ -10,11 +10,12 @@ if(isset($_POST['accion'])){
     $usuario = $_POST['user'];
     if (isset($_POST['pass'])) {
         $clave = $_POST['pass'];
+        $cons = $_POST['consultorio'];
         require_once '../controladoresEspecificos/ControladorUsuario.php';
         $cU = new ControladorUsuario();
         $us = base64_decode(base64_decode($usuario));
         $pa = base64_decode(base64_decode($clave));
-        $res =$cU->validarUsuarioClave($us, $pa); 
+        $res =$cU->validarUsuarioClave($us, $pa, $cons); 
         echo json_encode($res);
     }
 }

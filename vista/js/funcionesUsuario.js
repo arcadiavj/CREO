@@ -31,6 +31,7 @@ $(function() {
                         //alert("Tipo Acceso: "+tA);
                         if (parseInt(tA) == 1) {
                             $("#logedUser").html(datos.usuario_usuario);
+                            $("#id_consultorio").val(datos.id_consultorio);
                             app.buscarUsuarios();  
                             app.bindings();
                         }else{

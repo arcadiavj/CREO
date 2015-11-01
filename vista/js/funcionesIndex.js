@@ -5,6 +5,8 @@ $(function() {
     (function(app) {
         
         app.init = function() {
+            $("#comboConsultorio").val("").html();
+            app.cargarComboConsultorio();
             $('#user').focus();
             $("#submit").on('click', function(event) {
                 event.preventDefault();
@@ -21,7 +23,23 @@ $(function() {
                 event.preventDefault();
             });
         };
-
+        
+        app.cargarComboConsultorio = function(){
+            var url = "controlador/ruteador/Ruteador.php?nombreFormulario=Consultorio&accion=buscar";
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'json',
+                success: function(datosDevueltos) {
+                    $.each(datosDevueltos, function(clave, consultorio) {
+                        $("#comboConsultorio").append('<option value="' + consultorio.id_consultorio + '">'+ consultorio.descripcion_consultorio +'</option>');
+                    });
+                },
+                error: function() {
+                    alert("error al enviar al servidor");
+                }
+            });
+        };
 
         app.encriptar = function(){
             var usuario = btoa(btoa($('#user').val()));
@@ -30,8 +48,9 @@ $(function() {
         };
         
         app.enviarAServidor = function(usuario, pass){
+            var cons = $("#comboConsultorio").val();
             var url = "controlador/ruteador/Seguridad.php";
-            var datosEnviar = {user:usuario, pass:pass};
+            var datosEnviar = {user:usuario, pass:pass, consultorio:cons};
             $.ajax({
                 url: url,
                 method: 'POST',

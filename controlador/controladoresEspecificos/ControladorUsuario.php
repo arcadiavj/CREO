@@ -266,14 +266,14 @@ class ControladorUsuario extends ControladorGeneral {
 //        }
         
     }
-    public function validarUsuarioClave($user, $pass) {
+    public function validarUsuarioClave($user, $pass, $cons) {
         
         try {
             $this->refControladorPersistencia->get_conexion()->beginTransaction();  //comienza la transacción
             $statement = $this->refControladorPersistencia->ejecutarSentencia(DBSentencias::CHECK_USER, array($user));
             $resultado = $statement->fetch();           
             $this->refControladorPersistencia->get_conexion()->commit(); //si todo salió bien hace el commit
-            if (!$resultado) { //no exste usuario
+            if (!$resultado) { //no existe usuario
                 session_start();
                 session_destroy();
                 return $res=["falla"=>"user"];
@@ -284,13 +284,15 @@ class ControladorUsuario extends ControladorGeneral {
                     $_SESSION["usuario_usuario"]=$user;
                     $_SESSION["id_usuario"]=$resultado['id_usuario'];
                     $_SESSION["tipoAcceso_usuario"]=$resultado['tipoAcceso_usuario'];
-                    return $res=["usuario_usuario"=>$user, "id_usuario"=>$resultado['id_usuario'],"tipoAcceso_usuario"=>$resultado['tipoAcceso_usuario'], "cambiarClave"=>"cambiar"];
+                    $_SESSION["id_consultorio"]=$cons;
+                    return $res=["usuario_usuario"=>$user, "id_usuario"=>$resultado['id_usuario'],"tipoAcceso_usuario"=>$resultado['tipoAcceso_usuario'], "cambiarClave"=>"cambiar", "id_consultorio"=>$cons];
                 }else{//ya la ha cambiado, ingreso correcto
                     session_start();
                     $_SESSION["usuario_usuario"]=$user;
                     $_SESSION["id_usuario"]=$resultado['id_usuario'];
                     $_SESSION["tipoAcceso_usuario"]=$resultado['tipoAcceso_usuario'];
-                    return $res=["usuario_usuario"=>$user, "id_usuario"=>$resultado['id_usuario'],"tipoAcceso_usuario"=>$resultado['tipoAcceso_usuario']];
+                    $_SESSION["id_consultorio"]=$cons;
+                    return $res=["usuario_usuario"=>$user, "id_usuario"=>$resultado['id_usuario'],"tipoAcceso_usuario"=>$resultado['tipoAcceso_usuario'], "id_consultorio"=>$cons];
                 }
             }else{
                 session_start();
